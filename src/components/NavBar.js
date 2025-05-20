@@ -1,27 +1,29 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { Link } from 'react-router-dom';
 
-export class NavBar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      query: ''
-    };
-  }
+// export class NavBar extends Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       query: ''
+//     };
+//   }
+const NavBar=({onSearch})=>{
+  const [query,setQuery]=useState('');
 
-  handleChange = (e) => {
-    this.setState({ query: e.target.value });
+  const handleChange = (e) => {
+    setQuery(e.target.value);
   };
 
-  handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    this.props.onSearch(this.state.query);
+onSearch(query);
   };
 
-  render() {
+
     return (
       <div>
-        <nav className="navbar navbar-expand-lg bg-black">
+        <nav className="navbar  navbar-expand-lg bg-black fixed-top">
           <div className="container-fluid">
             <Link className="navbar-brand text-white" to="/">ChronoPress</Link>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
@@ -37,14 +39,14 @@ export class NavBar extends Component {
                 <li className="nav-item"><Link className="nav-link text-white" to="/sports">Sports</Link></li>
                 <li className="nav-item"><Link className="nav-link text-white" to="/technology">Technology</Link></li>
               </ul>
-              <form className="d-flex" role="search" onSubmit={this.handleSubmit}>
+              <form className="d-flex" role="search" onSubmit={handleSubmit}>
                 <input
                   className="form-control me-2"
                   type="search"
                   placeholder="Search News"
                   aria-label="Search"
-                  value={this.state.query}
-                  onChange={this.handleChange}
+                  value={query}
+                  onChange={handleChange}
                 />
                 <button className="btn btn-outline-success" type="submit">Search</button>
               </form>
@@ -53,7 +55,7 @@ export class NavBar extends Component {
         </nav>
       </div>
     );
-  }
-}
+  
+};
 
 export default NavBar;
